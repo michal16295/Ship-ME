@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import http from "../api/httpService";
 import paths from "../constants/pathConstants";
-import globalConstants from "../constants/globalConstants";
+import api from "../api/constants";
 
 // Slice
 const slice = createSlice({
@@ -77,7 +77,7 @@ const {
 export const loadCompany = (id) => async (dispatch) => {
   try {
     dispatch(clearCompany());
-    const res = await http.get(`/companies/loadCompany/${id}`);
+    const res = await http.get(`${api.LOAD_COMPANY}/${id}`);
     dispatch(loadCompanySuccess(res.data));
   } catch (e) {
     dispatch(loadCompanyError(e.response.data.error));
@@ -85,7 +85,7 @@ export const loadCompany = (id) => async (dispatch) => {
 };
 export const updateCompany = (id, data) => async (dispatch) => {
   try {
-    const res = await http.post(`/companies/updateCompany/${id}`, data);
+    const res = await http.post(`${api.UPDATE_COMPANY}/${id}`, data);
     dispatch(updateCompanySuccess(res.data));
     window.location.reload();
   } catch (e) {
@@ -94,7 +94,7 @@ export const updateCompany = (id, data) => async (dispatch) => {
 };
 export const createCompany = (data) => async (dispatch) => {
   try {
-    const res = await http.post(`/companies/createCompany`, data);
+    const res = await http.post(`${api.CREATE_COMPANY}`, data);
     dispatch(createCompanySuccess(res.data));
     window.location = paths.COMPANIES;
   } catch (e) {
@@ -103,7 +103,7 @@ export const createCompany = (data) => async (dispatch) => {
 };
 export const deleteCompany = (id) => async (dispatch) => {
   try {
-    const res = await http.delete(`/companies/deleteCompany/${id}`);
+    const res = await http.delete(`${api.DELETE_COMPANY}/${id}`);
     dispatch(deleteCompanySuccess(res.data));
     window.location = paths.COMPANIES;
   } catch (e) {

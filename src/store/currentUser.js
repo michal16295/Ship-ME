@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import http from "../api/httpService";
 import paths from "../constants/pathConstants";
 import globalConstants from "../constants/globalConstants";
+import api from "../api/constants";
 
 const jwt = localStorage.getItem(globalConstants.LOCAL_STR_TOKEN);
 // Slice
@@ -82,7 +83,7 @@ const {
 } = slice.actions;
 export const login = (data) => async (dispatch) => {
   try {
-    const res = await http.post("/users/login", data);
+    const res = await http.post(`${api.LOGIN}`, data);
     dispatch(loginSuccess(res.data));
     localStorage.setItem(globalConstants.LOCAL_STR_TOKEN, res.data.jwt);
     if (res.data.numOfCompanies > 1) window.location = paths.WELCOME_COMPANIES;
@@ -93,7 +94,7 @@ export const login = (data) => async (dispatch) => {
 };
 export const register = (data) => async (dispatch) => {
   try {
-    const res = await http.post("/users/register", data);
+    const res = await http.post(`${api.REGISTER}`, data);
     localStorage.setItem(globalConstants.LOCAL_STR_TOKEN, res.data.jwt);
     dispatch(registerSuccess(res.data));
     window.location = paths.PROFILE + `/${res.data.userId}`;
@@ -114,7 +115,7 @@ export const logout = () => async (dispatch) => {
 };
 export const loadCurrentUser = () => async (dispatch) => {
   try {
-    const res = await http.get(`/users/profile`);
+    const res = await http.get(`${api.LOAD_CURRENT_USER}`);
     dispatch(loadCurrentUserSuccess(res.data));
   } catch (e) {
     dispatch(loadCurrentUserError(e.response.data.error));
@@ -122,7 +123,7 @@ export const loadCurrentUser = () => async (dispatch) => {
 };
 export const updateCurrentUser = (data) => async (dispatch) => {
   try {
-    const res = await http.post(`/users/update/`, data);
+    const res = await http.post(`${api.UPDATE_USER}`, data);
     dispatch(currentUserUpdateSuccess(res.data));
     window.location.reload();
   } catch (e) {

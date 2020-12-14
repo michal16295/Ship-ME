@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import http from "../api/httpService";
 import paths from "../constants/pathConstants";
+import api from "../api/constants";
 
 // Slice
 const slice = createSlice({
@@ -92,7 +93,7 @@ const {
 
 export const updateUser = (id, data) => async (dispatch) => {
   try {
-    const res = await http.post(`/users/update/${id}`, data);
+    const res = await http.post(`${api.UPDATE_USER}/${id}`, data);
     dispatch(userUpdateSuccess(res.data));
     window.location.reload();
   } catch (e) {
@@ -101,7 +102,7 @@ export const updateUser = (id, data) => async (dispatch) => {
 };
 export const createUser = (data) => async (dispatch) => {
   try {
-    const res = await http.post(`/users/createUser`, data);
+    const res = await http.post(`${api.CREATE_USER}`, data);
     dispatch(userCreateSuccess(res.data));
     window.location = paths.ACCOUNT;
   } catch (e) {
@@ -111,7 +112,7 @@ export const createUser = (data) => async (dispatch) => {
 export const loadUser = (id) => async (dispatch) => {
   try {
     dispatch(clearUser());
-    const res = await http.get(`/users/loadUser/${id}`);
+    const res = await http.get(`${api.LOAD_USER}/${id}`);
     dispatch(loadUserSuccess(res.data));
   } catch (e) {
     dispatch(loadUserError(e.response.data.error));
@@ -119,7 +120,7 @@ export const loadUser = (id) => async (dispatch) => {
 };
 export const deleteUser = (id) => async (dispatch) => {
   try {
-    const res = await http.delete(`/users/delete/${id}`);
+    const res = await http.delete(`${api.DELETE_USER}${id}`);
     dispatch(deleteUserSuccess(res.data));
     window.location.reload();
   } catch (e) {
@@ -128,7 +129,7 @@ export const deleteUser = (id) => async (dispatch) => {
 };
 export const loadUsers = () => async (dispatch) => {
   try {
-    const res = await http.get(`/users/loadAllUsers`);
+    const res = await http.get(`${api.LOAD_ALL_USERS}`);
     dispatch(loadUsersSuccess(res.data));
   } catch (e) {
     dispatch(loadUsersError(e.response.data.error));

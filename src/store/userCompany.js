@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import http from "../api/httpService";
 import paths from "../constants/pathConstants";
+import api from "../api/constants";
 
 // Slice
 const slice = createSlice({
@@ -61,7 +62,7 @@ const {
 export const loadUserCompanies = (search) => async (dispatch) => {
   try {
     const res = await http.get(
-      `/userCompany/userCompanies/?search=${encodeURIComponent(search)}`
+      `${api.USER_COMPANIES}/?search=${encodeURIComponent(search)}`
     );
     dispatch(loadUserCompaniesSuccess(res.data));
   } catch (e) {
@@ -73,7 +74,7 @@ export const loadUserCompanies = (search) => async (dispatch) => {
 export const loadCompanyUsers = (id, search) => async (dispatch) => {
   try {
     const res = await http.get(
-      `/userCompany/companieUsers/${id}/?search=${encodeURIComponent(search)}`
+      `${api.COMPANY_USERS}/${id}/?search=${encodeURIComponent(search)}`
     );
     dispatch(loadCompanyUsersSuccess(res.data));
   } catch (e) {
@@ -83,7 +84,7 @@ export const loadCompanyUsers = (id, search) => async (dispatch) => {
 };
 export const addExistingUser = (data) => async (dispatch) => {
   try {
-    const res = await http.post(`/userCompany/addExistingUser`, data);
+    const res = await http.post(`${api.ADD_EXISTING_USER}`, data);
     dispatch(addExsitingUserSuccess(res.data));
     window.location = paths.ACCOUNT;
   } catch (e) {

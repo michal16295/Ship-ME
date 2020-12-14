@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import http from "../api/httpService";
 import globalConstants from "../constants/globalConstants";
+import api from "../api/constants";
 
 // Slice
 const slice = createSlice({
@@ -51,7 +52,7 @@ const {
 
 export const loadInitialCompany = (id) => async (dispatch) => {
   try {
-    const res = await http.get(`/companies/loadInitilCompany/${id}`);
+    const res = await http.get(`${api.LOAD_INITIAL_COMPANY}/${id}`);
     dispatch(loadCurrentCompanySuccess(res.data.company));
     localStorage.setItem(globalConstants.LOCAL_STR_TOKEN, res.data.jwt);
     window.location.reload();
@@ -61,7 +62,7 @@ export const loadInitialCompany = (id) => async (dispatch) => {
 };
 export const loadCurrentCompany = (id) => async (dispatch) => {
   try {
-    const res = await http.get(`/companies/loadCompany/${id}`);
+    const res = await http.get(`${api.LOAD_COMPANY}/${id}`);
     dispatch(loadCurrentCompanySuccess(res.data));
   } catch (e) {
     dispatch(loadCurrentCompanyError(e.response.data.error));
@@ -69,7 +70,7 @@ export const loadCurrentCompany = (id) => async (dispatch) => {
 };
 export const updateCurrentCompany = (id, data) => async (dispatch) => {
   try {
-    const res = await http.post(`/companies/updateCompany/${id}`, data);
+    const res = await http.post(`${api.UPDATE_COMPANY}/${id}`, data);
     dispatch(updateCurrentCompanySuccess(res.data));
     window.location.reload();
   } catch (e) {
