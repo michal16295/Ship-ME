@@ -8,7 +8,7 @@ const api = {
   DELETE_USER: "/users/delete",
   LOAD_ALL_USERS: "/users/loadAllUsers",
   LOAD_CURRENT_USER: "/users/profile",
-  UPDATE_USER: "/users/update/",
+  UPDATE_USER: "/users/update",
 
   //companies
   LOAD_INITIAL_COMPANY: "/companies/loadInitilCompany",

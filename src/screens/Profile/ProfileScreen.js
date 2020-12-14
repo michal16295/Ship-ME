@@ -52,6 +52,7 @@ const ProfileScreen = ({ match }) => {
       <Formik
         initialValues={profile.user}
         enableReinitialize={true}
+        validationSchema={updateUserValidation}
         onSubmit={(val) => {
           handleUpdate(val);
         }}
@@ -109,11 +110,7 @@ const ProfileScreen = ({ match }) => {
               type="password"
               value="demcsdcds"
             />
-            <FormInput
-              label="New password"
-              name="newPassword"
-              type="password"
-            />
+            <FormInput label="New password" name="password" type="password" />
             <FormInput
               label="Confirm password"
               name="confirmPassword"
